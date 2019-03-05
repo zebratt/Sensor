@@ -1,0 +1,8 @@
+.page-app{
+    padding: 10px;
+
+    .title{
+        color: #abc;
+        font-size: 20px;
+    }
+}
