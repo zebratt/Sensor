@@ -2,11 +2,12 @@ import './index.css'
 import React from 'react'
 import Base from '@src/layouts/Base'
 
-export default function() {
+export default function App() {
+
     return (
         <Base>
             <div className="page-app">
-                <div className="title">123</div>
+                123
             </div>
         </Base>
     )
