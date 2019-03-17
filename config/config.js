@@ -31,4 +31,13 @@ export default {
         }),
         require('precss'),
     ],
+    extraBabelPlugins: [
+        [
+            'import',
+            {
+                libraryName: 'antd-mobile',
+                style: 'css',
+            },
+        ],
+    ],
 }
