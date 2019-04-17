@@ -1,11 +1,10 @@
 import './index.css'
-import React from 'react'
 import Base from '@src/layouts/Base'
 
-export default function App() {
+export default function News() {
     return (
         <Base>
-            <div className="page-app">app</div>
+            <h1>news</h1>
         </Base>
     )
 }

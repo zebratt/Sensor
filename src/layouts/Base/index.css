@@ -1,0 +1,13 @@
+.base{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    flex: 1;
+}
+
+.footer{
+    height: 45px;
+}

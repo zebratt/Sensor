@@ -1,4 +1,5 @@
 const path = require('path')
+const localIdentName = '[name]_[local]_[hash:base64:5]'
 const routerConfig = require('./router.config')
 
 export default {
@@ -12,6 +13,7 @@ export default {
                 dynamicImport: { webpackChunkName: true },
                 title: 'Sensor',
                 dll: false,
+                fastClick: true,
                 routes: {
                     exclude: [/components\//],
                 },
@@ -23,8 +25,11 @@ export default {
     },
     history: 'hash',
     hash: true,
-    disableCSSModules: true,
+    disableCSSModules: false,
     routes: routerConfig,
+    cssLoaderOptions: {
+        localIdentName,
+    },
     extraPostCSSPlugins: [
         require('postcss-import')({
             path: [path.join(__dirname, '../src/styles')],
@@ -32,6 +37,13 @@ export default {
         require('precss'),
     ],
     extraBabelPlugins: [
+        [
+            'react-css-modules',
+            {
+                webpackHotModuleReloading: true,
+                generateScopedName: localIdentName,
+            },
+        ],
         [
             'import',
             {

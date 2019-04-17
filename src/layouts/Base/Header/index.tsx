@@ -1,16 +1,14 @@
-import { NavBar, Icon } from 'antd-mobile'
+import { NavBar } from 'antd-mobile'
+import IconSvg from '@src/components/IconSvg'
 
 const Header = () => {
     return (
         <NavBar
             mode="light"
-            icon={<Icon type="left" />}
+            icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}
             onLeftClick={() => console.log('onLeftClick')}
-            rightContent={[
-                <Icon key="1" type="ellipsis" />,
-            ]}
         >
-            NavBar
+            纵横期货
         </NavBar>
     )
 }
