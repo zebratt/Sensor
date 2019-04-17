@@ -9,10 +9,13 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "@rematch/core": "^1.1.0",
+    "@rematch/immer": "^1.1.0",
     "ant-mobile": "^0.0.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "redux-react-hook": "^3.3.1"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
