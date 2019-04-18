@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useDispatch, useMappedState } from 'redux-react-hook'
+import router from 'umi/router'
 import { TabBar } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { tabs } from './config'
@@ -18,12 +19,15 @@ export default function Footer() {
     const dispatch = useDispatch()
     const onTabPress = useCallback(
         nextTabKey => {
-            dispatch({
-                type: 'app/updateCurrentTabKey',
-                payload: {
-                    nextTabKey,
-                },
-            })
+            if (nextTabKey !== currentTabKey) {
+                dispatch({
+                    type: 'app/updateCurrentTabKey',
+                    payload: {
+                        nextTabKey,
+                    },
+                })
+                router.push(`/${nextTabKey}`)
+            }
         },
         [dispatch]
     )
