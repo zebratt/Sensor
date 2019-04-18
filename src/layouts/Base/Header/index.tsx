@@ -8,7 +8,7 @@ const Header = () => {
             icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}
             onLeftClick={() => console.log('onLeftClick')}
         >
-            纵横期货
+            Sensor
         </NavBar>
     )
 }
