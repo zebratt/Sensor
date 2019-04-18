@@ -4,13 +4,14 @@ import router from 'umi/router'
 import { TabBar } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { tabs } from './config'
+import { iRootState } from '@src/store'
 
 const selectedColor = '#108ee9'
 
 export default function Footer() {
     const mapState = useCallback(
-        state => ({
-            currentTabKey: state.app.currentTabKey,
+        (state: iRootState) => ({
+            currentTabKey: state.app.currentTabKey
         }),
         []
     )

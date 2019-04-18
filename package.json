@@ -12,6 +12,7 @@
     "@rematch/core": "^1.1.0",
     "@rematch/immer": "^1.1.0",
     "ant-mobile": "^0.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^8.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
