@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+import { useDispatch, useMappedState } from 'redux-react-hook'
 import { TabBar } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { tabs } from './config'
@@ -5,6 +7,27 @@ import { tabs } from './config'
 const selectedColor = '#108ee9'
 
 export default function Footer() {
+    const mapState = useCallback(
+        state => ({
+            currentTabKey: state.app.currentTabKey,
+        }),
+        []
+    )
+    const { currentTabKey } = useMappedState(mapState)
+
+    const dispatch = useDispatch()
+    const onTabPress = useCallback(
+        nextTabKey => {
+            dispatch({
+                type: 'app/updateCurrentTabKey',
+                payload: {
+                    nextTabKey,
+                },
+            })
+        },
+        [dispatch]
+    )
+
     return (
         <TabBar
             unselectedTintColor="#949494"
@@ -20,9 +43,9 @@ export default function Footer() {
                         key={tab.key}
                         icon={<IconSvg name={tab.icon} />}
                         selectedIcon={<IconSvg name={tab.icon} style={{ color: selectedColor }} />}
-                        selected={false}
+                        selected={currentTabKey === tab.key}
                         onPress={() => {
-                            console.log(tab.key + ' pressed')
+                            onTabPress(tab.key)
                         }}
                     />
                 )
