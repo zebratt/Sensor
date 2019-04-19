@@ -11,12 +11,11 @@ const selectedColor = '#108ee9'
 export default function Footer() {
     const mapState = useCallback(
         (state: iRootState) => ({
-            currentTabKey: state.app.currentTabKey
+            currentTabKey: state.app.currentTabKey,
         }),
         []
     )
     const { currentTabKey } = useMappedState(mapState)
-
     const dispatch = useDispatch()
 
     return (
@@ -29,15 +28,13 @@ export default function Footer() {
         >
             {tabs.map(tab => {
                 const onTabPress = useCallback(() => {
-                    if (tab.key !== currentTabKey) {
-                        dispatch({
-                            type: 'app/updateCurrentTabKey',
-                            payload: {
-                                nextTabKey: tab.key,
-                            },
-                        })
-                        router.push(`/${tab.key}`)
-                    }
+                    dispatch({
+                        type: 'app/updateCurrentTabKey',
+                        payload: {
+                            nextTabKey: tab.key,
+                        },
+                    })
+                    router.push(`/${tab.key}`)
                 }, [dispatch])
 
                 return (
