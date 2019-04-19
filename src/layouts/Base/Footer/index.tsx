@@ -17,20 +17,6 @@ export default function Footer() {
     const { currentTabKey } = useMappedState(mapState)
 
     const dispatch = useDispatch()
-    const onTabPress = useCallback(
-        nextTabKey => {
-            if (nextTabKey !== currentTabKey) {
-                dispatch({
-                    type: 'app/updateCurrentTabKey',
-                    payload: {
-                        nextTabKey,
-                    },
-                })
-                router.push(`/${nextTabKey}`)
-            }
-        },
-        [dispatch]
-    )
 
     return (
         <TabBar
@@ -41,6 +27,18 @@ export default function Footer() {
             noRenderContent
         >
             {tabs.map(tab => {
+                const onTabPress = useCallback(() => {
+                    if (tab.key !== currentTabKey) {
+                        dispatch({
+                            type: 'app/updateCurrentTabKey',
+                            payload: {
+                                nextTabKey: tab.key,
+                            },
+                        })
+                        router.push(`/${tab.key}`)
+                    }
+                }, [dispatch])
+
                 return (
                     <TabBar.Item
                         title={tab.title}
@@ -48,9 +46,7 @@ export default function Footer() {
                         icon={<IconSvg name={tab.icon} />}
                         selectedIcon={<IconSvg name={tab.icon} style={{ color: selectedColor }} />}
                         selected={currentTabKey === tab.key}
-                        onPress={() => {
-                            onTabPress(tab.key)
-                        }}
+                        onPress={onTabPress}
                     />
                 )
             })}

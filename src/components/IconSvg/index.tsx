@@ -10,17 +10,23 @@ interface IIconSvgProps {
     disabled?: boolean
 }
 
-function IconSVG({ className, name, onClick = () => {}, style, disabled }: IIconSvgProps) {
+function IconSVG({ className, name, onClick, style, disabled }: IIconSvgProps) {
     const classes = !!className ? `icon-svg ${className}` : 'icon-svg'
-    const iconStyle: React.CSSProperties = { ...style }
+    const extProps: { style: React.CSSProperties } = {
+        style: { ...style },
+    }
 
     if (disabled) {
-        iconStyle.color = '#ccc'
-        iconStyle.cursor = 'not-allowed'
+        extProps.style.color = '#ccc'
+        extProps.style.cursor = 'not-allowed'
+    }
+
+    if (onClick) {
+        Object.assign(extProps, { onClick })
     }
 
     return (
-        <svg className={classes} aria-hidden="true" onClick={onClick} style={iconStyle}>
+        <svg className={classes} aria-hidden="true" {...extProps}>
             <use xlinkHref={`#sen-${name}`} />
         </svg>
     )

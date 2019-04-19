@@ -3,11 +3,7 @@ import IconSvg from '@src/components/IconSvg'
 
 const Header = () => {
     return (
-        <NavBar
-            mode="light"
-            icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}
-            onLeftClick={() => console.log('onLeftClick')}
-        >
+        <NavBar mode="light" icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}>
             Sensor
         </NavBar>
     )
