@@ -5,7 +5,7 @@ import { StoreContext } from 'redux-react-hook'
 import Header from './Header'
 import Footer from './Footer'
 
-import store from '@src/store'
+import { store } from '@src/store'
 
 export type BasicLayoutComponent<P> = React.SFC<P>
 
