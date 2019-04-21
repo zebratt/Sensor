@@ -52,4 +52,11 @@ export default {
             },
         ],
     ],
+    proxy: {
+        '/back': {
+            target: 'http://116.62.130.69:8080',
+            changeOrigin: true,
+            pathRewrite: { '^/back': '' },
+          },
+    }
 }

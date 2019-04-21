@@ -8,7 +8,23 @@ function checkHttpStatus(response: Response) {
     throw new Error(response.statusText)
 }
 
-export default async function request(url: string, options: RequestInit) {
+function format(res: any, type?: string) {
+    if (type === 'back') {
+        return {
+            result: res.data,
+            success: res.rtnCode === 200,
+        }
+    } else {
+        return res
+    }
+}
+
+/**
+ * @param url
+ * @param options
+ * @param type 根据type类型格式化response
+ */
+export default async function request(url: string, options: RequestInit, type?: string) {
     const defaultHeaders = {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
@@ -20,7 +36,7 @@ export default async function request(url: string, options: RequestInit) {
 
     checkHttpStatus(response)
 
-    const res = await response.json()
+    const res = await response.json().then(value => format(value, type))
 
     if (res.success) {
         return res.result

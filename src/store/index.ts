@@ -6,9 +6,11 @@ const immer = immerPlugin()
 
 export const store = init({
     models,
-    plugins: [immer]
+    plugins: [
+        immer,
+    ],
 })
 
 export type Store = typeof store
 export type Dispatch = typeof store.dispatch
-export type iRootState = RematchRootState<typeof models>
+export type IRootState = RematchRootState<typeof models>
