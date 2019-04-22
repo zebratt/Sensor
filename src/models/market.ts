@@ -19,7 +19,7 @@ const initState: IMarketState = {
 export default createModel({
     state: initState,
     reducers: {
-        update(state, payload) {
+        updateContracts(state, payload) {
             state.contracts = payload
 
             return state
@@ -29,7 +29,7 @@ export default createModel({
         async fetchContracts() {
             const res = await service.fetchContracts()
 
-            this.update(res)
+            this.updateContracts(res)
         },
     },
 })
