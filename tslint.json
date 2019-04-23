@@ -4,7 +4,8 @@
         "semicolon": [true, "never"],
         "object-literal-sort-keys": false,
         "ordered-imports": false,
-        "jsx-boolean-value": ["never"]
+        "jsx-boolean-value": ["never"],
+        "no-console": false
     },
     "linterOptions": {
         "exclude": ["node_modules/**/*.ts"]
