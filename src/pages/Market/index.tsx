@@ -2,15 +2,19 @@ import './index.css'
 import { IRootState } from '@src/store'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 import { useCallback, useEffect } from 'react'
+import { IContractBody } from '@src/types/contract'
+import get from 'lodash/get'
+import { format } from '@src/utils'
 
 export default function Market() {
     const mapState = useCallback(
         (state: IRootState) => ({
             contracts: state.market.contracts,
+            contractBodyMap: state.market.contractBodyMap,
         }),
         []
     )
-    const { contracts } = useMappedState(mapState)
+    const { contracts, contractBodyMap } = useMappedState(mapState)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -28,12 +32,15 @@ export default function Market() {
                 <div styleName="price">卖价</div>
             </div>
             {contracts.map(contract => {
+                const { contractName, commodityNo, contractNo } = contract
+                const body: IContractBody = contractBodyMap[commodityNo + contractNo]
+
                 return (
                     <div key={contract.id} styleName="row">
-                        <div styleName="name">{contract.contractName}</div>
-                        <div styleName="price">--</div>
-                        <div styleName="price">--</div>
-                        <div styleName="price">--</div>
+                        <div styleName="name">{contractName}</div>
+                        <div styleName="price">{format(get(body, 'QLastPrice', '--'))}</div>
+                        <div styleName="price">{format(get(body, 'QBidPrice[0]', '--'))}</div>
+                        <div styleName="price">{format(get(body, 'QAskPrice[0]', '--'))}</div>
                     </div>
                 )
             })}

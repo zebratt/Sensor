@@ -12,32 +12,39 @@ export interface IContract {
 interface IMarketState {
     contracts: IContract[]
     contractBodyMap: { [key: string]: IContractBody }
+    contractKeys: string[]
 }
 
 const initState: IMarketState = {
     contracts: [],
     contractBodyMap: {},
+    contractKeys: [],
 }
 
 export default createModel({
     state: initState,
+    effects: {
+        async fetchContracts() {
+            const contracts: IContract[] = await service.fetchContracts()
+
+            this.updateContracts(contracts)
+            this.updateContractKeys(contracts.map(contract => contract.commodityNo + contract.contractNo))
+        },
+    },
     reducers: {
         updateContracts(state, payload) {
             state.contracts = payload
-
             return state
         },
         updateContractBodyMap(state, payload: IContractBody) {
-            state.contractBodyMap[payload.Contract.ContractNo] = payload
+            const { CommodityNo, ContractNo } = payload.Contract
 
+            state.contractBodyMap[CommodityNo + ContractNo] = payload
             return state
         },
-    },
-    effects: {
-        async fetchContracts() {
-            const res = await service.fetchContracts()
-
-            this.updateContracts(res)
+        updateContractKeys(state, payload) {
+            state.contractKeys = payload
+            return state
         },
     },
 })

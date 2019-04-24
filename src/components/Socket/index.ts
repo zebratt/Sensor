@@ -1,30 +1,33 @@
 import { IContractBody } from '@src/types/contract'
-import { IDispatch } from '@src/store'
+import { Store } from '@src/store'
 
 const hello = '{"accountNo":"Esunny","password":"yQkhVen4"}'
 
-export function initSocket(dispatch: IDispatch) {
+export function initSocket(store: Store) {
     const ws = new WebSocket('ws://116.62.130.69:9002')
 
     ws.onopen = () => {
         ws.send(hello)
     }
 
-    ws.onmessage = (e) => {
+    ws.onmessage = e => {
+        const state = store.getState()
+        const { contractKeys } = state.market
+
         try {
             const data: IContractBody = JSON.parse(e.data)
 
             if (data.Contract) {
-                dispatch.market.updateContractBodyMap(data)
+                const { CommodityNo, ContractNo } = data.Contract
+
+                if (contractKeys.includes(CommodityNo + ContractNo)) {
+                    store.dispatch.market.updateContractBodyMap(data)
+                }
             }
         } catch (error) {
             throw new Error('合约解析失败')
         }
     }
-
-    setTimeout(() => {
-        ws.close()
-    }, 10000)
 
     ws.onclose = () => {
         console.log('close')

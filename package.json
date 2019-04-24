@@ -12,6 +12,7 @@
     "@rematch/immer": "^1.1.0",
     "ant-mobile": "^0.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
+    "@types/lodash": "^4.14.123",
     "@types/react": "^16.7.18",
     "@types/react-css-modules": "^4.6.2",
     "@types/react-dom": "^16.0.11",

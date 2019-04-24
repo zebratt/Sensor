@@ -10,8 +10,8 @@ export const store = init({
     plugins: [
         immer,
         {
-            onStoreCreated() {
-                initSocket(store.dispatch)
+            onStoreCreated(s) {
+                initSocket(s as Store)
             },
         },
     ],

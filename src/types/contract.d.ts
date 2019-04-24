@@ -1,8 +1,8 @@
 export interface IContractBody {
     Contract: {
         ExchangeNo: string
-        CommodityNo: string
-        ContractNo: string
+        CommodityNo: string // 品种编号
+        ContractNo: string // 合约编号
     }
     CurrencyNo: string // 币种编号
     TradingState: number // 交易状态 1.集合竞价 2.集合竞价撮合 3.连续交易 4.交易暂停 5.闭市
