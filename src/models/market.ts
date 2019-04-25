@@ -14,15 +14,12 @@ interface IMarketState {
     contractBodyMap: { [key: string]: IContractBody }
     contractKeys: string[]
 }
-
-const initState: IMarketState = {
-    contracts: [],
-    contractBodyMap: {},
-    contractKeys: [],
-}
-
 export default createModel<IMarketState>({
-    state: initState,
+    state: {
+        contracts: [],
+        contractBodyMap: {},
+        contractKeys: [],
+    },
     effects: {
         async fetchContracts() {
             const contracts: IContract[] = await service.fetchContracts()

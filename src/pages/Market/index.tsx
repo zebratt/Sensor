@@ -1,11 +1,16 @@
 import './index.css'
-import { IRootState } from '@src/store'
+import { IRootState, IDispatch } from '@src/store'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 import { useCallback, useEffect } from 'react'
 import { IContractBody } from '@src/types/contract'
+import { IContract } from '@src/models/market'
 import get from 'lodash/get'
 import { format } from '@src/utils'
 
+interface IMapState {
+    contracts: IContract[]
+    contractBodyMap: { [key: string]: IContractBody }
+}
 export default function Market() {
     const mapState = useCallback(
         (state: IRootState) => ({
@@ -14,13 +19,11 @@ export default function Market() {
         }),
         []
     )
-    const { contracts, contractBodyMap } = useMappedState(mapState)
-    const dispatch = useDispatch()
+    const { contracts, contractBodyMap } = useMappedState<IMapState>(mapState)
+    const dispatch = useDispatch<IDispatch>()
 
     useEffect(() => {
-        dispatch({
-            type: 'market/fetchContracts',
-        })
+        dispatch.market.fetchContracts()
     }, [])
 
     return (
