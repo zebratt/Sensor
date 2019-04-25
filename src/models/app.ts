@@ -4,12 +4,12 @@ interface IAppState {
     currentTabKey: string
 }
 
-export default createModel({
+export default createModel<IAppState>({
     state: {
         currentTabKey: 'market',
     },
     reducers: {
-        updateCurrentTabKey: (state: IAppState, { nextTabKey }) => {
+        updateCurrentTabKey(state, { nextTabKey }) {
             state.currentTabKey = nextTabKey
 
             return state

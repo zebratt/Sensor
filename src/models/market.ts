@@ -21,7 +21,7 @@ const initState: IMarketState = {
     contractKeys: [],
 }
 
-export default createModel({
+export default createModel<IMarketState>({
     state: initState,
     effects: {
         async fetchContracts() {
