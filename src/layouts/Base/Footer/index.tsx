@@ -27,14 +27,14 @@ export default function Footer() {
             noRenderContent
         >
             {tabs.map(tab => {
-                const onTabPress = useCallback(() => {
+                const onTabPress = () => {
                     if (currentTabKey !== tab.key) {
                         dispatch.app.updateCurrentTabKey({
                             nextTabKey: tab.key,
                         })
                         router.push(`/${tab.key}`)
                     }
-                }, [dispatch, currentTabKey])
+                }
 
                 return (
                     <TabBar.Item

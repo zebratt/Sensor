@@ -6,6 +6,7 @@ import { IContractBody } from '@src/types/contract'
 import { IContract } from '@src/models/market'
 import get from 'lodash/get'
 import { format } from '@src/utils'
+import router from 'umi/router'
 
 interface IMapState {
     contracts: IContract[]
@@ -36,10 +37,15 @@ export default function Market() {
             </div>
             {contracts.map(contract => {
                 const { contractName, commodityNo, contractNo } = contract
-                const body: IContractBody = contractBodyMap[commodityNo + contractNo]
+                const itemKey = commodityNo + contractNo
+                const body: IContractBody = contractBodyMap[itemKey]
+
+                const itemClickHandler = () => {
+                    router.push(`/detail/${commodityNo}/${contractNo}`)
+                }
 
                 return (
-                    <div key={contract.id} styleName="row">
+                    <div key={contract.id} styleName="row" onClick={itemClickHandler}>
                         <div styleName="name">{contractName}</div>
                         <div styleName="price">{format(get(body, 'QLastPrice', '--'))}</div>
                         <div styleName="price">{format(get(body, 'QBidPrice[0]', '--'))}</div>

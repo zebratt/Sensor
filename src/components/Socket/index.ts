@@ -11,18 +11,11 @@ export function initSocket(store: Store) {
     }
 
     ws.onmessage = e => {
-        const state = store.getState()
-        const { contractKeys } = state.market
-
         try {
             const data: IContractBody = JSON.parse(e.data)
 
             if (data.Contract) {
-                const { CommodityNo, ContractNo } = data.Contract
-
-                if (contractKeys.includes(CommodityNo + ContractNo)) {
-                    store.dispatch.market.updateContractBodyMap(data)
-                }
+                store.dispatch.market.updateContractBodyMap(data)
             }
         } catch (error) {
             throw new Error('合约解析失败')

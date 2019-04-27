@@ -1,12 +1,19 @@
 module.exports = [
     {
-        path: '/',
+        path: '/home',
         component: '../layouts/Base',
         routes: [
-            { path: '/market', component: './Market' },
-            { path: '/news', component: './News' },
-            { path: '/trade', component: './Trade' },
-            { path: '/money', component: './Money' },
+            { path: '/home/market', component: './Market' },
+            { path: '/home/news', component: './News' },
+            { path: '/home/trade', component: './Trade' },
+            { path: '/home/money', component: './Money' },
         ],
     },
+    {
+        path: '/detail',
+        component: '../layouts/Detail',
+        routes: [
+            { path: '/detail/:commodityNo/:contractNo', component: './Detail'}
+        ]
+    }
 ]
