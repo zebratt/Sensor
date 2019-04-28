@@ -13,12 +13,14 @@ interface IMarketState {
     contracts: IContract[]
     contractBodyMap: { [key: string]: IContractBody }
     contractKeys: string[]
+    currentContract: IContract
 }
 export default createModel<IMarketState>({
     state: {
         contracts: [],
         contractBodyMap: {},
         contractKeys: [],
+        currentContract: null
     },
     effects: {
         async fetchContracts() {
@@ -29,6 +31,10 @@ export default createModel<IMarketState>({
         },
     },
     reducers: {
+        updateCurrentContract(state, payload) {
+            state.currentContract = payload
+            return state
+        },
         updateContracts(state, payload) {
             state.contracts = payload
             return state

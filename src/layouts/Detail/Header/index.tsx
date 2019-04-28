@@ -2,19 +2,29 @@ import React, { useCallback } from 'react'
 import { NavBar } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import router from 'umi/router'
+import { useMappedState } from 'redux-react-hook'
+import { IRootState } from '@src/store'
+import { IContract } from '@src/models/market'
 
-interface IHeader {
-    title: string
+interface IMappedState {
+    currentContract: IContract
 }
-const Header = (props: IHeader) => {
-    const { title } = props
+const Header = () => {
     const onLeftClick = useCallback(() => {
         router.goBack()
     }, [])
 
+    const mapState = useCallback(
+        (state: IRootState) => ({
+            currentContract: state.market.currentContract,
+        }),
+        []
+    )
+    const { currentContract } = useMappedState<IMappedState>(mapState)
+
     return (
         <NavBar mode="light" icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />} onLeftClick={onLeftClick}>
-            <span style={{ color: 'rgb(16, 142, 233)' }}>{title}</span>
+            <span style={{ color: 'rgb(16, 142, 233)' }}>{currentContract.contractName}</span>
         </NavBar>
     )
 }

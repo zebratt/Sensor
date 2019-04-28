@@ -1,0 +1,15 @@
+.item {
+    display: flex;
+    border-bottom: #e5e5e5 solid 1px;
+
+    .label {
+        width: 100px;
+        padding: 12px 20px;
+        border-right: #e5e5e5 solid 1px;
+    }
+
+    .value {
+        flex: 1;
+        padding: 12px 20px;
+    }
+}

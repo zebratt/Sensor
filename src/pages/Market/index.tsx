@@ -41,7 +41,10 @@ export default function Market() {
                 const body: IContractBody = contractBodyMap[itemKey]
 
                 const itemClickHandler = () => {
-                    router.push(`/detail/${commodityNo}/${contractNo}`)
+                    if (contractBodyMap.hasOwnProperty(commodityNo + contractNo)) {
+                        dispatch.market.updateCurrentContract(contract)
+                        router.push(`/detail/${commodityNo}/${contractNo}`)
+                    }
                 }
 
                 return (

@@ -10,7 +10,7 @@ const DetailLayout: DetailLayoutComponent<any> = props => {
     return (
         <StoreContext.Provider value={store}>
             <div styleName="detail">
-                <Header title={'hello'} />
+                <Header />
                 <div styleName="content">{props.children}</div>
             </div>
         </StoreContext.Provider>
