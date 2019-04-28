@@ -9,7 +9,7 @@ import { store } from '@src/store'
 
 export type BasicLayoutComponent<P> = React.SFC<P>
 
-const BaseLayout: BasicLayoutComponent<React.Props<any>> = props => {
+const BaseLayout: BasicLayoutComponent<any> = props => {
     return (
         <StoreContext.Provider value={store}>
             <div styleName="base">

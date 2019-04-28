@@ -8,7 +8,7 @@ import { IRootState, IDispatch } from '@src/store'
 
 const selectedColor = '#108ee9'
 
-export default function Footer() {
+export default function Footer(){
     const mapState = useCallback(
         (state: IRootState) => ({
             currentTabKey: state.app.currentTabKey,
@@ -32,7 +32,7 @@ export default function Footer() {
                         dispatch.app.updateCurrentTabKey({
                             nextTabKey: tab.key,
                         })
-                        router.push(`/${tab.key}`)
+                        router.push(`/home/${tab.key}`)
                     }
                 }
 
