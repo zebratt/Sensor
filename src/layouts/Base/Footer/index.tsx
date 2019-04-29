@@ -32,7 +32,7 @@ export default function Footer() {
                         dispatch.app.updateCurrentTabKey({
                             nextTabKey: tab.key,
                         })
-                        router.push(`/${tab.key}`)
+                        router.push(`/home/${tab.key}`)
                     }
                 }
 
