@@ -2,6 +2,6 @@ import './index.css'
 
 export default function News() {
     return (
-        <h1>news</h1>
+        <div>新闻面板</div>
     )
 }
