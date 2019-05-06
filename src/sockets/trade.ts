@@ -11,10 +11,10 @@ export class TradeSocket {
     private nextCommands: ICommand[] = this.currentCommands
     constructor() {
         this.ws = new WebSocket('ws://116.62.130.69:8002')
-        this.ws.onmessage = this.onMessage
+        this.ws.onmessage = this.onMessage.bind(this)
     }
     public login(username: string, password: string) {
-        return new Promise(resolve => {
+        return new Promise<any>(resolve => {
             const messageId = String(new Date().valueOf())
 
             this.ensureCanMutateNextCommands()
@@ -45,7 +45,7 @@ export class TradeSocket {
     private onMessage(eve: MessageEvent) {
         const data: ISocket = JSON.parse(eve.data)
         const commands = (this.currentCommands = this.nextCommands)
-        const resolvedIndexes = []
+        const resolvedIndexes: number[] = []
 
         for (let i = 0; i < commands.length; i++) {
             const command = commands[i]
@@ -55,6 +55,6 @@ export class TradeSocket {
                 resolvedIndexes.push(i)
             }
         }
-        // this.ensureCanMutateNextCommands()
+        this.nextCommands = this.currentCommands.filter((v, i) => resolvedIndexes.indexOf(i) === -1)
     }
 }

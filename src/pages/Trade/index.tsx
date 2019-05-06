@@ -36,7 +36,10 @@ function Trade() {
                 <div styleName="footer">
                     <button
                         onClick={() => {
-                            dispatch.trade.login(username, password)
+                            dispatch.trade.login({
+                                username,
+                                password,
+                            })
                         }}
                     >
                         登录
