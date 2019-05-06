@@ -1,10 +1,12 @@
 import './index.css'
 import { useState } from 'react'
-import { tradeConnector } from '@src/components/Connect'
+import { useDispatch } from 'redux-react-hook'
+import { IDispatch } from '@src/store'
 
 function Trade() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch<IDispatch>()
 
     return (
         <div styleName="trade">
@@ -34,7 +36,7 @@ function Trade() {
                 <div styleName="footer">
                     <button
                         onClick={() => {
-                            tradeConnector.login(username, password)
+                            dispatch.trade.login(username, password)
                         }}
                     >
                         登录

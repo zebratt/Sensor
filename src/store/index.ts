@@ -1,7 +1,7 @@
 import { init, RematchRootState } from '@rematch/core'
 import immerPlugin from '@rematch/immer'
 import * as models from '@src/models'
-import { initMarkingConnect } from '@src/components/Connect'
+import { initSocket } from '@src/sockets/marketing'
 
 const immer = immerPlugin()
 
@@ -11,7 +11,7 @@ export const store = init({
         immer,
         {
             onStoreCreated(s) {
-                initMarkingConnect(s as Store)
+                initSocket(s as Store)
             },
         },
     ],
