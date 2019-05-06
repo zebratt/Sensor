@@ -27,8 +27,8 @@ export function format(value: TValue, options?: IFormatOptions) {
  */
 export function getCurrentTabKey(): string{
     let key = 'market' // 默认是行情
-    const matches = location.hash.match(/[^/]+(?!.*\/)/)
-    const hash = matches && matches[0]
+    const paths = location.hash.slice(2).split('/')
+    const hash = paths[1]
 
     if (hash) {
         key = hash
