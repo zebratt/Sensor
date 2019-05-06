@@ -1,5 +1,6 @@
 import './index.css'
 import { useState } from 'react'
+import { tradeConnector } from '@src/components/Connect'
 
 function Trade() {
     const [username, setUsername] = useState('')
@@ -33,7 +34,7 @@ function Trade() {
                 <div styleName="footer">
                     <button
                         onClick={() => {
-                            console.log(username, password)
+                            tradeConnector.login(username, password)
                         }}
                     >
                         登录
