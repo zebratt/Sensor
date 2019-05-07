@@ -3,3 +3,4 @@
 * ~~页面刷新location修正 : /[^/]+(?!.*\/)/~~
 * ~~Footer组件dispatch类型修正~~
 * ~~交易页面添加登陆状态控制~~
+* lodash import plugin

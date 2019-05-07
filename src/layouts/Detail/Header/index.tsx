@@ -23,7 +23,12 @@ const Header = () => {
     const { currentContract } = useMappedState<IMappedState>(mapState)
 
     return (
-        <NavBar mode="light" icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />} onLeftClick={onLeftClick}>
+        <NavBar
+            mode="light"
+            style={{ borderBottom: '#e5e5e5 solid 1px' }}
+            icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}
+            onLeftClick={onLeftClick}
+        >
             <span style={{ color: 'rgb(16, 142, 233)' }}>{currentContract.contractName}</span>
         </NavBar>
     )
