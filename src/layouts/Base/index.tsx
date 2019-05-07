@@ -13,7 +13,7 @@ const BaseLayout: BasicLayoutComponent<any> = props => {
     return (
         <StoreContext.Provider value={store}>
             <div styleName="base">
-                <Header />
+                <Header pathname={props.location.pathname} />
                 <div styleName="content">{props.children}</div>
                 <div styleName="footer">
                     <Footer />

@@ -30,6 +30,23 @@ export default createModel<ITradeState>({
                 Toast.fail(err)
             }
         },
+        async logout(payload, state) {
+            try {
+                const res = await ts.logout(state.trade.username)
+
+                if (res.errorNo === 200) {
+                    this.updateLogin({
+                        hasLogin: false,
+                        username: '',
+                    })
+                    Toast.success('退出成功')
+                } else {
+                    Toast.fail(res.errorMsg)
+                }
+            } catch (err) {
+                Toast.fail(err)
+            }
+        },
     },
     reducers: {
         updateLogin(state, { hasLogin, username }) {

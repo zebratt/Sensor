@@ -1,4 +1,5 @@
 import { ISocket } from '@src/types/trade'
+import { createLoginMessage, createLogoutMessage } from './message.config'
 
 function timeout(reject: any) {
     setTimeout(() => {
@@ -7,7 +8,6 @@ function timeout(reject: any) {
 }
 
 interface ICommand {
-    target: string
     messageId: string
     resolver: (...args: any) => void
 }
@@ -25,22 +25,23 @@ export class TradeSocket {
 
             this.ensureCanMutateNextCommands()
             this.nextCommands.push({
-                target: 'OnLogin',
                 messageId,
                 resolver: resolve,
             })
-            this.ws.send(`
-                {
-                    "header":{
-                        "name":"Login",
-                        "dialogId":"${messageId}"
-                    },
-                    "body":{
-                        "clientNo":"${username}",
-                        "password":"${password}"
-                    }
-                }
-            `)
+            this.ws.send(createLoginMessage(messageId, username, password))
+            timeout(reject)
+        })
+    }
+    public logout(username: string) {
+        return new Promise<any>((resolve, reject) => {
+            const messageId = String(new Date().valueOf())
+
+            this.ensureCanMutateNextCommands()
+            this.nextCommands.push({
+                messageId,
+                resolver: resolve,
+            })
+            this.ws.send(createLogoutMessage(messageId, username))
             timeout(reject)
         })
     }
@@ -57,7 +58,7 @@ export class TradeSocket {
         for (let i = 0; i < commands.length; i++) {
             const command = commands[i]
 
-            if (data.header.name === command.target && data.header.dialogId === command.messageId) {
+            if (data.header.dialogId === command.messageId) {
                 command.resolver(data.body)
                 resolvedIndexes.push(i)
             }

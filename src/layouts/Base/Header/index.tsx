@@ -1,10 +1,32 @@
 import { NavBar } from 'antd-mobile'
-import IconSvg from '@src/components/IconSvg'
+import { useMappedState, useDispatch } from 'redux-react-hook'
+import { useCallback } from 'react'
+import { IRootState, IDispatch } from '@src/store'
 
-const Header = () => {
+interface IHeaderProps {
+    pathname: string
+}
+const Header = (props: IHeaderProps) => {
+    const mapState = useCallback((state: IRootState) => ({ hasLogin: state.trade.hasLogin }), [])
+    const { hasLogin } = useMappedState(mapState)
+    const dispatch = useDispatch<IDispatch>()
+    const isTradeTab = props.pathname === '/home/trade'
+    const rightContent =
+        isTradeTab && hasLogin ? (
+            <span
+                onClick={() => {
+                    dispatch.trade.logout()
+                }}
+            >
+                退出登录
+            </span>
+        ) : (
+            ''
+        )
+
     return (
-        <NavBar mode="light" icon={<IconSvg name="back" style={{ width: 20, height: 20 }} />}>
-            <span style={{color: 'rgb(16, 142, 233)'}}>纵横期货</span>
+        <NavBar mode="light" style={{ borderBottom: '#e5e5e5 solid 1px' }} rightContent={rightContent}>
+            <span style={{ color: 'rgb(16, 142, 233)' }}>纵横期货</span>
         </NavBar>
     )
 }
