@@ -1,28 +1,32 @@
-.login{
+.login {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .content{
+    .content {
         width: 80%;
 
-        .item{
+        .item {
             display: flex;
             height: 40px;
             border-bottom: #e5e5e5 solid 1px;
 
-            .label{
+            .label {
                 width: 80px;
                 line-height: 40px;
             }
 
-            input{
-                font-size: 12px;
+            :global {
+                input {
+                    font-size: 12px;
+                    border: 0;
+                    outline: 0;
+                }
             }
         }
 
-        .footer{
+        .footer {
             text-align: right;
             margin-top: 15px;
         }

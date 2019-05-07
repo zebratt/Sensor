@@ -25,6 +25,8 @@ export default {
     },
     history: 'hash',
     hash: true,
+    base: '/sensor/',
+    publicPath: '/sensor/',
     disableCSSModules: false,
     routes: routerConfig,
     cssLoaderOptions: {
@@ -53,10 +55,9 @@ export default {
         ],
     ],
     proxy: {
-        '/back': {
+        '/api': {
             target: 'http://116.62.130.69:8080',
             changeOrigin: true,
-            pathRewrite: { '^/back': '' },
-          },
-    }
+        },
+    },
 }

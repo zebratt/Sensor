@@ -10,7 +10,7 @@ import { IContractBody } from '@src/types/contract'
 import get from 'lodash/get'
 import find from 'lodash/find'
 import { format } from '@src/utils'
-import { directions, offsets } from './config'
+import { directions, offsets, orderTypes } from './config'
 
 type TContractBodyMap = { [key: string]: IContractBody }
 interface IMappedState {
@@ -34,6 +34,7 @@ function Trade() {
     const [directionValue, setDirectionValue] = useState<number>(0)
     const [offsetValue, setOffsetValue] = useState<number>(0)
     const [amountValue, setAmountValue] = useState<string>('0')
+    const [orderTypeValue, setOrderTypeValue] = useState<any>(0)
     const body = getContractBody(pickedIds, contracts, contractBodyMap)
 
     useEffect(() => {

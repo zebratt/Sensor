@@ -5,6 +5,7 @@
     "build": "umi build",
     "test": "umi test",
     "lint:ts": "tslint \"src/**/*.ts\" \"src/**/*.tsx\"",
+    "publish": "scp -r dist/* root@116.62.130.69:/usr/local/nginx/html/sensor",
     "precommit": "lint-staged"
   },
   "dependencies": {
