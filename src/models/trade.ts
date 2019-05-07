@@ -15,15 +15,19 @@ export default createModel<ITradeState>({
     },
     effects: {
         async login({ username, password }) {
-            const res = await ts.login(username, password)
+            try {
+                const res = await ts.login(username, password)
 
-            if (res.errorNo === 200) {
-                this.updateLogin({
-                    hasLogin: true,
-                    username,
-                })
-            } else {
-                Toast.fail(res.errorMsg)
+                if (res.errorNo === 200) {
+                    this.updateLogin({
+                        hasLogin: true,
+                        username,
+                    })
+                } else {
+                    Toast.fail(res.errorMsg)
+                }
+            } catch (err) {
+                Toast.fail('请求超时！')
             }
         },
     },

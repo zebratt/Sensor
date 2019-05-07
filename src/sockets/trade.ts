@@ -1,5 +1,11 @@
 import { ISocket } from '@src/types/trade'
 
+function timeout(reject: any) {
+    setTimeout(() => {
+        reject('timeout')
+    }, 3000)
+}
+
 interface ICommand {
     target: string
     messageId: string
@@ -14,7 +20,7 @@ export class TradeSocket {
         this.ws.onmessage = this.onMessage.bind(this)
     }
     public login(username: string, password: string) {
-        return new Promise<any>(resolve => {
+        return new Promise<any>((resolve, reject) => {
             const messageId = String(new Date().valueOf())
 
             this.ensureCanMutateNextCommands()
@@ -35,6 +41,7 @@ export class TradeSocket {
                     }
                 }
             `)
+            timeout(reject)
         })
     }
     private ensureCanMutateNextCommands() {
