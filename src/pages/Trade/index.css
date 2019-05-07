@@ -1,6 +1,6 @@
 .trade {
     color: #666;
-    
+
     .item {
         display: flex;
         align-items: center;
@@ -17,10 +17,21 @@
             flex: 1;
         }
 
-        .icon-expand{
-            width: 16px; height: 16px;
+        .icon-expand {
+            width: 16px;
+            height: 16px;
             vertical-align: -5px;
             transform: rotate(270deg);
+        }
+
+        :global{
+            label{
+                font-size: 13px;
+            }
+            input[type="radio"]{
+                position: absolute;
+                margin: 2px 6px;
+            }
         }
     }
 }

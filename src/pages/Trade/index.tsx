@@ -3,13 +3,14 @@ import { useMappedState, useDispatch } from 'redux-react-hook'
 import { useCallback, useEffect, useState } from 'react'
 import { IRootState, IDispatch } from '@src/store'
 import Login from './Login'
-import { Picker } from 'antd-mobile'
+import { Picker, Flex } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { IContract } from '@src/models/market'
 import { IContractBody } from '@src/types/contract'
 import get from 'lodash/get'
 import find from 'lodash/find'
 import { format } from '@src/utils'
+import { directions, offsets } from './config'
 
 type TContractBodyMap = { [key: string]: IContractBody }
 interface IMappedState {
@@ -27,19 +28,21 @@ function Trade() {
         []
     )
     const { hasLogin, contracts, contractBodyMap } = useMappedState<IMappedState>(mapState)
-
-    if (!hasLogin) {
-        return <Login />
-    }
-
     const dispatch = useDispatch<IDispatch>()
     const contractPickerData = createContractPickerData(contracts)
     const [pickedIds, setPickedIds] = useState<any>([])
+    const [directionValue, setDirectionValue] = useState<number>(0)
+    const [offsetValue, setOffsetValue] = useState<number>(0)
+    const [amountValue, setAmountValue] = useState<string>('0')
     const body = getContractBody(pickedIds, contracts, contractBodyMap)
 
     useEffect(() => {
         dispatch.market.fetchContracts()
     }, [])
+
+    if (!hasLogin) {
+        return <Login />
+    }
 
     return (
         <div styleName="trade">
@@ -72,6 +75,66 @@ function Trade() {
                 <div styleName="label">卖价:</div>
                 <div styleName="content">{format(get(body, 'QAskPrice[0]', '--'))}</div>
             </div>
+            <div styleName="item">
+                <div styleName="label">方向:</div>
+                <div styleName="content">
+                    <Flex>
+                        {directions.map(direction => {
+                            return (
+                                <Flex.Item key={direction.label}>
+                                    <label htmlFor={direction.label}>{direction.label}</label>
+                                    <input
+                                        id={direction.label}
+                                        name="direction"
+                                        type="radio"
+                                        checked={directionValue === direction.value}
+                                        value={direction.value}
+                                        onChange={(eve: React.SyntheticEvent<HTMLInputElement>) => {
+                                            setDirectionValue(Number(eve.currentTarget.value))
+                                        }}
+                                    />
+                                </Flex.Item>
+                            )
+                        })}
+                    </Flex>
+                </div>
+            </div>
+            <div styleName="item">
+                <div styleName="label">开平:</div>
+                <div styleName="content">
+                    <Flex>
+                        {offsets.map(offset => {
+                            return (
+                                <Flex.Item key={offset.label}>
+                                    <label htmlFor={offset.label}>{offset.label}</label>
+                                    <input
+                                        id={offset.label}
+                                        name="offset"
+                                        type="radio"
+                                        checked={offsetValue === offset.value}
+                                        value={offset.value}
+                                        onChange={(eve: React.SyntheticEvent<HTMLInputElement>) => {
+                                            setOffsetValue(Number(eve.currentTarget.value))
+                                        }}
+                                    />
+                                </Flex.Item>
+                            )
+                        })}
+                    </Flex>
+                </div>
+            </div>
+            <div styleName="item">
+                <div styleName="label">数量:</div>
+                <div styleName="content">
+                    <input
+                        type="number"
+                        value={amountValue}
+                        onChange={(eve: React.SyntheticEvent<HTMLInputElement>) => {
+                            setAmountValue(eve.currentTarget.value)
+                        }}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
@@ -84,7 +147,7 @@ function CustomChildren(props: any) {
     return (
         <div onClick={props.onClick}>
             <div style={{ display: 'flex', height: '100%', alignItems: 'center' }}>
-                <div style={{ color: '#ccc', flex: 1 }}>{props.extra}</div>
+                <div style={{ fontSize: 13, color: '#ccc', flex: 1 }}>{props.extra}</div>
                 <div style={{ width: 30 }}>{props.children}</div>
             </div>
         </div>
