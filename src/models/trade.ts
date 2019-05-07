@@ -27,7 +27,7 @@ export default createModel<ITradeState>({
                     Toast.fail(res.errorMsg)
                 }
             } catch (err) {
-                Toast.fail('请求超时！')
+                Toast.fail(err)
             }
         },
     },

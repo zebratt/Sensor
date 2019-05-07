@@ -2,7 +2,7 @@ import { ISocket } from '@src/types/trade'
 
 function timeout(reject: any) {
     setTimeout(() => {
-        reject('timeout')
+        reject('请求超时')
     }, 3000)
 }
 
