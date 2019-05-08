@@ -13,7 +13,7 @@ export function createLoginMessage(id: string, username: string, password: strin
     `
 }
 
-export function createLogoutMessage(id: string, username: string){
+export function createLogoutMessage(id: string, username: string) {
     return `
         {
             "header":{
@@ -24,5 +24,28 @@ export function createLogoutMessage(id: string, username: string){
                 "clientNo":"${username}"
             }
         }
+    `
+}
+
+export function createOrderMessage(id: string, body: any) {
+    return `
+    {
+        "header":{
+            "name":"OrderInsert",
+            "dialogId":"${id}"
+        },
+        "body":{
+                "clientNo":"${body.clientNo}",
+                "commodityNo":"${body.commodityNo}",
+                "contractNo":"${body.contractNo}",
+                "currencyNo":"${body.currencyNo}",
+                "orderType":"${body.orderType}",
+                "isRiskOrder":"0",
+                "direct":"${body.direct}",
+                "offset":"${body.offset}",
+                "orderPrice":"${body.orderPrice}",
+                "orderVol":"${body.orderVol}"
+        }
+    }
     `
 }

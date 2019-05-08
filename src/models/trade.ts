@@ -47,6 +47,13 @@ export default createModel<ITradeState>({
                 Toast.fail(err)
             }
         },
+        async order({ body }, state) {
+            try {
+                const res = await ts.order({ clientNo: state.trade.username, ...body })
+            } catch (err) {
+                Toast.fail(err)
+            }
+        },
     },
     reducers: {
         updateLogin(state, { hasLogin, username }) {

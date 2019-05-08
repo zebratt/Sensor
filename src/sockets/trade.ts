@@ -1,5 +1,5 @@
 import { ISocket } from '@src/types/trade'
-import { createLoginMessage, createLogoutMessage } from './message.config'
+import { createLoginMessage, createLogoutMessage, createOrderMessage } from './message.config'
 
 function timeout(reject: any) {
     setTimeout(() => {
@@ -42,6 +42,19 @@ export class TradeSocket {
                 resolver: resolve,
             })
             this.ws.send(createLogoutMessage(messageId, username))
+            timeout(reject)
+        })
+    }
+    public order(body: any) {
+        return new Promise<any>((resolve, reject) => {
+            const messageId = String(new Date().valueOf())
+
+            this.ensureCanMutateNextCommands()
+            this.nextCommands.push({
+                messageId,
+                resolver: resolve,
+            })
+            this.ws.send(createOrderMessage(messageId, body))
             timeout(reject)
         })
     }

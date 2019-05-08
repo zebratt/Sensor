@@ -3,7 +3,7 @@ import { useMappedState, useDispatch } from 'redux-react-hook'
 import { useCallback, useEffect, useState } from 'react'
 import { IRootState, IDispatch } from '@src/store'
 import Login from './Login'
-import { Picker, Flex, Button, WhiteSpace } from 'antd-mobile'
+import { Picker, Flex, Button, WhiteSpace, Toast } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { IContract } from '@src/models/market'
 import { IContractBody } from '@src/types/contract'
@@ -37,6 +37,27 @@ function Trade() {
     const [orderTypeValue, setOrderTypeValue] = useState<any>([0])
     const [orderPriceValue, setOrderPriceValue] = useState<string>('')
     const body = getContractBody(pickedIds, contracts, contractBodyMap)
+
+    const onOrderConform = () => {
+        if (!pickedIds.length) {
+            return Toast.info('请先选择合约')
+        }
+
+        const contract: IContract = contracts[pickedIds[0]]
+
+        dispatch.trade.order({
+            body: {
+                commodityNo: contract.commodityNo,
+                contractNo: contract.contractNo,
+                currencyNo: '',
+                orderType: orderTypeValue[0],
+                direct: directionValue,
+                offset: offsetValue,
+                orderPrice: orderPriceValue,
+                orderVol: amountValue,
+            },
+        })
+    }
 
     useEffect(() => {
         dispatch.market.fetchContracts()
@@ -171,7 +192,9 @@ function Trade() {
                 </div>
             )}
             <WhiteSpace />
-            <Button type="primary" style={{margin: '0 10px'}}>下单</Button>
+            <Button type="primary" style={{ margin: '0 10px' }} onClick={onOrderConform}>
+                下单
+            </Button>
         </div>
     )
 }
