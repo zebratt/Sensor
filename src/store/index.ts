@@ -11,7 +11,7 @@ export const store = init({
         immer,
         {
             onStoreCreated(s) {
-                // initSocket(s as Store)
+                initSocket(s as Store)
             },
         },
     ],
