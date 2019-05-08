@@ -1,6 +1,6 @@
 import './index.css'
 import { useMappedState, useDispatch } from 'redux-react-hook'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import { IRootState, IDispatch } from '@src/store'
 import Login from './Login'
 import { Picker, Flex, Button, WhiteSpace, Toast } from 'antd-mobile'
@@ -59,6 +59,40 @@ function Trade() {
         })
     }
 
+    const ContractPicker = useMemo(() => {
+        return (
+            <Picker
+                value={pickedIds}
+                data={contractPickerData}
+                cols={1}
+                onChange={value => {
+                    setPickedIds(value)
+                }}
+            >
+                <CustomChildren>
+                    <IconSvg name="back" styleName="icon-expand" />
+                </CustomChildren>
+            </Picker>
+        )
+    }, [pickedIds, contracts])
+
+    const OrderTypePicker = useMemo(() => {
+        return (
+            <Picker
+                value={orderTypeValue}
+                data={orderTypes}
+                cols={1}
+                onChange={value => {
+                    setOrderTypeValue(value)
+                }}
+            >
+                <CustomChildren>
+                    <IconSvg name="back" styleName="icon-expand" />
+                </CustomChildren>
+            </Picker>
+        )
+    }, [orderTypeValue])
+
     useEffect(() => {
         dispatch.market.fetchContracts()
     }, [])
@@ -71,20 +105,7 @@ function Trade() {
         <div styleName="trade">
             <div styleName="item">
                 <div styleName="label">合约:</div>
-                <div styleName="content">
-                    <Picker
-                        value={pickedIds}
-                        data={contractPickerData}
-                        cols={1}
-                        onChange={value => {
-                            setPickedIds(value)
-                        }}
-                    >
-                        <CustomChildren>
-                            <IconSvg name="back" styleName="icon-expand" />
-                        </CustomChildren>
-                    </Picker>
-                </div>
+                <div styleName="content">{ContractPicker}</div>
             </div>
             <div styleName="item">
                 <div styleName="label">最新价:</div>
@@ -161,20 +182,7 @@ function Trade() {
             </div>
             <div styleName="item">
                 <div styleName="label">委托类型:</div>
-                <div styleName="content">
-                    <Picker
-                        value={orderTypeValue}
-                        data={orderTypes}
-                        cols={1}
-                        onChange={value => {
-                            setOrderTypeValue(value)
-                        }}
-                    >
-                        <CustomChildren>
-                            <IconSvg name="back" styleName="icon-expand" />
-                        </CustomChildren>
-                    </Picker>
-                </div>
+                <div styleName="content">{OrderTypePicker}</div>
             </div>
             {orderTypeValue[0] !== 0 && (
                 <div styleName="item">
