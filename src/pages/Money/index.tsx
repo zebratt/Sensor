@@ -1,5 +1,3 @@
-export default function(){
-    return (
-        <h1>Money</h1>
-    )
+export default function() {
+    return <div>资金面板</div>
 }

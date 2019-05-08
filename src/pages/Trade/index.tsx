@@ -3,7 +3,7 @@ import { useMappedState, useDispatch } from 'redux-react-hook'
 import { useCallback, useEffect, useState } from 'react'
 import { IRootState, IDispatch } from '@src/store'
 import Login from './Login'
-import { Picker, Flex } from 'antd-mobile'
+import { Picker, Flex, Button, WhiteSpace } from 'antd-mobile'
 import IconSvg from '@src/components/IconSvg'
 import { IContract } from '@src/models/market'
 import { IContractBody } from '@src/types/contract'
@@ -33,8 +33,9 @@ function Trade() {
     const [pickedIds, setPickedIds] = useState<any>([])
     const [directionValue, setDirectionValue] = useState<number>(0)
     const [offsetValue, setOffsetValue] = useState<number>(0)
-    const [amountValue, setAmountValue] = useState<string>('0')
-    const [orderTypeValue, setOrderTypeValue] = useState<any>(0)
+    const [amountValue, setAmountValue] = useState<string>('')
+    const [orderTypeValue, setOrderTypeValue] = useState<any>([0])
+    const [orderPriceValue, setOrderPriceValue] = useState<string>('')
     const body = getContractBody(pickedIds, contracts, contractBodyMap)
 
     useEffect(() => {
@@ -129,6 +130,7 @@ function Trade() {
                 <div styleName="content">
                     <input
                         type="number"
+                        placeholder="请输入委托数量"
                         value={amountValue}
                         onChange={(eve: React.SyntheticEvent<HTMLInputElement>) => {
                             setAmountValue(eve.currentTarget.value)
@@ -136,6 +138,40 @@ function Trade() {
                     />
                 </div>
             </div>
+            <div styleName="item">
+                <div styleName="label">委托类型:</div>
+                <div styleName="content">
+                    <Picker
+                        value={orderTypeValue}
+                        data={orderTypes}
+                        cols={1}
+                        onChange={value => {
+                            setOrderTypeValue(value)
+                        }}
+                    >
+                        <CustomChildren>
+                            <IconSvg name="back" styleName="icon-expand" />
+                        </CustomChildren>
+                    </Picker>
+                </div>
+            </div>
+            {orderTypeValue[0] !== 0 && (
+                <div styleName="item">
+                    <div styleName="label">委托价格:</div>
+                    <div styleName="content">
+                        <input
+                            type="number"
+                            placeholder="请输入委托价格"
+                            value={orderPriceValue}
+                            onChange={eve => {
+                                setOrderPriceValue(eve.currentTarget.value)
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
+            <WhiteSpace />
+            <Button type="primary" style={{margin: '0 10px'}}>下单</Button>
         </div>
     )
 }
@@ -148,7 +184,7 @@ function CustomChildren(props: any) {
     return (
         <div onClick={props.onClick}>
             <div style={{ display: 'flex', height: '100%', alignItems: 'center' }}>
-                <div style={{ fontSize: 13, color: '#ccc', flex: 1 }}>{props.extra}</div>
+                <div style={{ fontSize: 13, flex: 1 }}>{props.extra}</div>
                 <div style={{ width: 30 }}>{props.children}</div>
             </div>
         </div>

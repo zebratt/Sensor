@@ -32,6 +32,9 @@
                 position: absolute;
                 margin: 2px 6px;
             }
+            ::-webkit-input-placeholder{
+                color: #ccc;
+            }
         }
     }
 }
