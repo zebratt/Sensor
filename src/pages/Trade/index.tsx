@@ -43,7 +43,7 @@ function Trade() {
             return Toast.info('请先选择合约')
         }
 
-        const contract: IContract = contracts[pickedIds[0]]
+        const contract: IContract = find(contracts, ['id', pickedIds[0]]) as IContract
 
         dispatch.trade.order({
             body: {
