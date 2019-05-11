@@ -49,7 +49,7 @@ function Trade() {
             body: {
                 commodityNo: contract.commodityNo,
                 contractNo: contract.contractNo,
-                currencyNo: '',
+                currencyNo: contract.currencyNo,
                 orderType: orderTypeValue[0],
                 direct: directionValue,
                 offset: offsetValue,

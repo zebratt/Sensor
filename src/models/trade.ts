@@ -50,6 +50,12 @@ export default createModel<ITradeState>({
         async order({ body }, state) {
             try {
                 const res = await ts.order({ clientNo: state.trade.username, ...body })
+
+                if (res.errorNo === 200) {
+                    // do something
+                }else{
+                    Toast.fail(res.errorMsg)
+                }
             } catch (err) {
                 Toast.fail(err)
             }

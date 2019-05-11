@@ -7,6 +7,7 @@ export interface IContract {
     commodityNo: string
     contractNo: string
     contractName: string
+    currencyNo: string
 }
 
 interface IMarketState {
