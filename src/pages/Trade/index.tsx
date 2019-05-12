@@ -31,7 +31,7 @@ function Trade() {
     const dispatch = useDispatch<IDispatch>()
     const contractPickerData = createContractPickerData(contracts)
     const [pickedIds, setPickedIds] = useState<any>([])
-    const [directionValue, setDirectionValue] = useState<number>(0)
+    const [directionValue, setDirectionValue] = useState<number>(1)
     const [offsetValue, setOffsetValue] = useState<number>(0)
     const [amountValue, setAmountValue] = useState<string>('')
     const [orderTypeValue, setOrderTypeValue] = useState<any>([0])

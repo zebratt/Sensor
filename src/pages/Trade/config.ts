@@ -1,11 +1,11 @@
 export const directions = [
     {
         label: '买入',
-        value: 0,
+        value: 1,
     },
     {
         label: '卖出',
-        value: 1,
+        value: 0,
     },
 ]
 
