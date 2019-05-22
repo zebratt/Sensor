@@ -49,3 +49,17 @@ export function createOrderMessage(id: string, body: any) {
     }
     `
 }
+
+export function createQueryMoneyMessage(id: string, username: string){
+    return `
+    {
+        "header":{
+            "name":"QryMoney",
+            "dialogId":"${id}"
+        },
+        "body":{
+            "clientNo":"${username}"
+        }
+    }
+    `
+}

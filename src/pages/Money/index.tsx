@@ -1,5 +1,15 @@
-export default function() {
+import './index.css'
+
+function Money() {
+
     return (
-        <div>资金页面</div>
+        <div styleName="money">
+             <div styleName="item">
+                <div styleName="label">label</div>
+                <div styleName="value">value</div>
+             </div>
+        </div>
     )
 }
+
+export default Money

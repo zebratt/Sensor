@@ -1,5 +1,5 @@
 import { ISocket } from '@src/types/trade'
-import { createLoginMessage, createLogoutMessage, createOrderMessage } from './message.config'
+import { createLoginMessage, createLogoutMessage, createOrderMessage, createQueryMoneyMessage } from './message.config'
 
 function timeout(reject: any) {
     setTimeout(() => {
@@ -55,6 +55,19 @@ export class TradeSocket {
                 resolver: resolve,
             })
             this.ws.send(createOrderMessage(messageId, body))
+            timeout(reject)
+        })
+    }
+    public queryMoney(username: string){
+        return new Promise<any>((resolve, reject) => {
+            const messageId = String(new Date().valueOf())
+
+            this.ensureCanMutateNextCommands()
+            this.nextCommands.push({
+                messageId,
+                resolver: resolve
+            })
+            this.ws.send(createQueryMoneyMessage(messageId, username))
             timeout(reject)
         })
     }

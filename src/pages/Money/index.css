@@ -1,0 +1,18 @@
+.money {
+    padding: 20px;
+
+    .item {
+        display: flex;
+        border-bottom: #e5e5e5 solid 1px;
+        height: 40px;
+        align-items: center;
+
+        .label {
+            width: 100px;
+        }
+
+        .value {
+            flex: 1;
+        }
+    }
+}
